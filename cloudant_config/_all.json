@@ -1,0 +1,9 @@
+{
+    "_id": "_design/_all",
+    "views": {
+      "view-all": {
+        "map": "function (doc) {\n  //if(doc.date === \"2020-10-21\") {\n  //if(doc.date === \"2020-10-23\") {\n // if(doc.date === \"2020-10-20\") {\n if (doc.info === \"getAccessCode\"){\n    emit(doc._id, doc.type, doc.time, doc.info, doc.log.message, doc.date);\n }\n}"
+      }
+    },
+    "language": "javascript"
+  }

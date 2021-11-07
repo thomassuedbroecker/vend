@@ -1,0 +1,28 @@
+{
+  "author": "Thomas Suedbroecker",
+  "license": "Apache License Version 2.0",
+  "name": "vend",
+  "version": "1.0.0",
+  "description": "vend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha",
+    "lint": "node_modules/.bin/goodparts ./server.js"
+  },
+  "dependencies": {
+    "@cloudant/cloudant": "^4.3.0",
+    "axios": "^0.21.1",
+    "basic-auth": "^2.0.1",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "goodparts": "^1.2.1",
+    "mocha": "^8.3.2",
+    "supertest": "^6.1.3"
+  }
+}

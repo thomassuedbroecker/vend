@@ -1,0 +1,11 @@
+{
+  "_id": "_design/_d_i_logvend",
+  "views": {},
+  "language": "javascript",
+  "indexes": {
+    "_idx_vending": {
+      "analyzer": "standard",
+      "index": "function (doc) {\n  index(\"default\", doc._id);\n  \n  /*************\n    log  related\n   *************/\n\n  if(doc.type){\n    index(\"theType\", doc.type, {\"store\": true, \"facet\":true});\n  }\n  if(doc.time){\n    index(\"theInfo\", doc.info, {\"store\": true, \"facet\":true });\n  }\n  if(doc.log.message){\n    index(\"theMessage\", doc.log.message, {\"store\": true, \"facet\":true});\n  }\n  \n  if(doc.time){\n    index(\"theTime\", doc.time, {\"store\": true, \"facet\":true});\n  }\n  \n  if(doc.date){\n    index(\"theDate\", doc.date, {\"store\": true, \"facet\":true});\n  }\n}"
+    }
+  }
+}

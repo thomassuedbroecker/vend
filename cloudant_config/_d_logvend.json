@@ -1,0 +1,9 @@
+{
+  "_id": "_design/_d_logvend",
+  "views": {
+    "_v_logvending": {
+      "map": "function(doc) {\n    if(doc.type) {\n        emit(doc.type, doc.time, doc.info, doc.log.message);\n    }\n}"
+    }
+  },
+  "language": "javascript"
+}
