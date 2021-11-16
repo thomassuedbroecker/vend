@@ -451,13 +451,13 @@ function checkEnv(){
   if (process.env.VEND_USAGE == undefined) {
 
     message = "VEND_USAGE : undefined ";
-    logtofile(message);
+    //logtofile(message);
 
   } else {
 
     message = "VEND_USAGE : " + process.env.VEND_USAGE;
     vend_usage=process.env.VEND_USAGE;
-    logtofile(message);
+    //logtofile(message);
 
   }
 
@@ -465,26 +465,26 @@ function checkEnv(){
   if (process.env.USER == undefined) {
 
     message = "USER : undefined ";
-    logtofile(message);
+    //logtofile(message);
 
   } else {
 
     message = "USER : " + process.env.USER;
     vending_username=process.env.USER;
-    logtofile(message);
+    //logtofile(message);
 
   }
 
   if (process.env.USER_PASSWORD == undefined) {
 
     message = "USER_PASSWORD : undefined ";
-    logtofile(message);
+    //logtofile(message);
 
   } else {
 
     message = "USER_PASSWORD : " + process.env.USER_PASSWORD;
     vending_password=process.env.USER_PASSWORD;
-    logtofile(message);
+    //logtofile(message);
 
   }
 
@@ -492,26 +492,26 @@ function checkEnv(){
   if (process.env.ADMINUSER == undefined) {
 
     message = "ADMINUSER : undefined ";
-    logtofile(message);
+    //logtofile(message);
 
   } else {
 
     message = "ADMINUSER : " + process.env.ADMINUSER;
     vendingadmin_username=process.env.ADMINUSER;
-    logtofile(message);
+    //logtofile(message);
 
   }
 
   if (process.env.ADMINUSER_PASSWORD == undefined) {
 
     message = "ADMINUSER_PASSWORD : undefined ";
-    logtofile(message);
+    //(message);
 
   } else {
 
     message = "ADMINUSER_PASSWORD : " + process.env.ADMINUSER_PASSWORD;
     vendingadmin_password=process.env.ADMINUSER_PASSWORD;
-    logtofile(message);
+    //logtofile(message);
 
   }
   
@@ -565,12 +565,12 @@ function initAccessCodes(){
       console.log("** File written successfully: ", accesscodes_filename);
       logging.log(codes,"init_access_codes"); 
       message = "Info - envDefined==true"    
-      logtofile(message);
+      //logtofile(message);
 
     } else { 
 
       message = "Info - envDefined==false"    
-      logtofile(message);
+      //logtofile(message);
 
     }
     
