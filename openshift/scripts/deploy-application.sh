@@ -4,7 +4,7 @@
 root_folder=$(cd $(dirname $0); cd ../../; pwd)
 echo "Working path: [$root_folder]"
 # build config
-export GIT_REPO="https://github.com/IBM/multi-tenancy"
+export GIT_REPO="https://github.com/thomassuedbroecker/vend"
 export TEMPLATE_BUILD_CONFIG_FILE="build-config-template.yaml"
 export BUILD_CONFIG_FILE="build-config.yaml"
 # image stream config
