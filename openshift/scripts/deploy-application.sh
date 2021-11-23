@@ -10,14 +10,14 @@ export TEMPLATE_BUILD_CONFIG_FILE="build-config-template.yaml"
 export BUILD_CONFIG_FILE="build-config.yaml"
 # image stream config
 export IMAGESTREAM_CONFIG_FILE="imagestream-config.yaml"
-export TEMPLATE_IMAGESTREAM_CONFIG_FILE="template-imagestream-config.yaml"
+export TEMPLATE_IMAGESTREAM_CONFIG_FILE="imagestream-config-template.yaml"
 export IMAGESTREAM_JSON="imagestream.json"
 export IMAGESTREAM_DOCKERIMAGEREFERENCE=""
 # deployment config
 export TEMPLATE_DEPLOYMENT_CONFIG_FILE="deployment-config-template.yaml"
 export DEPOLYMENT_CONFIG_FILE="deployment-config.yaml"
 # route config
-export TEMPLATE_ROUTE_CONFIGE_FILE="template-route-config.yaml"
+export TEMPLATE_ROUTE_CONFIGE_FILE="route-config-template.yaml"
 export ROUTE_CONFIGE_FILE="route-config.yaml"
 
 # OpenShift
@@ -67,10 +67,10 @@ function createAndApplyBuildConfig () {
 
   echo "-> prepare image stream"
   KEY_TO_REPLACE=IMAGE_STREAM_1
-  sed "s+$KEY_TO_REPLACE+$OS_IMAGE_STREAM+g" "${root_folder}/openshift/config/image-streams/$TEMPLATE_IMAGESTREAM_CONFIG_FILE" > ${root_folder}/openshift/config/image-stream/$FRONTEND_IMAGESTREAM_CONFIG_FILE
+  sed "s+$KEY_TO_REPLACE+$OS_IMAGE_STREAM+g" "${root_folder}/openshift/config/image-streams/$TEMPLATE_IMAGESTREAM_CONFIG_FILE" > ${root_folder}/openshift/config/image-stream/$IMAGESTREAM_CONFIG_FILE
  
   echo "-> create image stream" 
-  oc apply -f "${root_folder}/openshift/config/image-stream/$IMAGESTREAM_CONFIG_FILE"
+  oc apply -f "${root_folder}/openshift/config/image-streams/$IMAGESTREAM_CONFIG_FILE"
   oc describe imagestream
   #oc describe is/$OS_IMAGE_STREAM
   
@@ -140,9 +140,9 @@ function createRoute () {
   KEY_TO_REPLACE=OC_DOMAIN_1
   sed "s+$KEY_TO_REPLACE+$OS_DOMAIN+g" "${root_folder}/openshift/config/routes/$TEMPLATE_ROUTE_CONFIGE_FILE" > ${root_folder}/openshift/config/routes/tmp.yaml
   KEY_TO_REPLACE=OC_SERVICE_1
-  sed "s+$KEY_TO_REPLACE+$OS_SERVICE+g" "${root_folder}/openshift/config/routes/tmp.yaml" > ${root_folder}/openshift/config/routes/$FRONTEND_ROUTE_CONFIGE_FILE
+  sed "s+$KEY_TO_REPLACE+$OS_SERVICE+g" "${root_folder}/openshift/config/routes/tmp.yaml" > ${root_folder}/openshift/config/routes/$ROUTE_CONFIGE_FILE
   echo "-> create route"
-  oc apply -f "${root_folder}/openshift/config/routes/$FRONTEND_ROUTE_CONFIGE_FILE"
+  oc apply -f "${root_folder}/openshift/config/routes/$ROUTE_CONFIGE_FILE"
   rm -f ${root_folder}/openshift/config/routes/tmp.yaml
 }
 
