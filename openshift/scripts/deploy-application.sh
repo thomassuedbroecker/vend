@@ -97,10 +97,10 @@ function createAndApplyBuildConfig () {
   oc describe imagestream
   
   echo "-> extract image reference: $OS_IMAGE_STREAM"
-  oc get imagestream "$OS_IMAGE_STREAM" -o json > ../image-streams/$IMAGESTREAM_JSON
-  DOCKERIMAGEREFERENCE=$(cat ../image-streams/$IMAGESTREAM_JSON | jq '.status.dockerImageRepository' | sed 's/"//g')
-  TAG=$(cat ../image-streams/$IMAGESTREAM_JSON | jq '.status.tags[].tag' | sed 's/"//g')
-  rm -f ../image-streams/$IMAGESTREAM_JSON
+  oc get imagestream "$OS_IMAGE_STREAM" -o json > ${root_folder}/openshift/config/image-streams/$IMAGESTREAM_JSON
+  DOCKERIMAGEREFERENCE=$(cat ${root_folder}/openshift/config/image-streams/$IMAGESTREAM_JSON | jq '.status.dockerImageRepository' | sed 's/"//g')
+  TAG=$(cat ${root_folder}/openshift/config/image-streams/$IMAGESTREAM_JSON | jq '.status.tags[].tag' | sed 's/"//g')
+  rm -f ${root_folder}/openshift/config/image-streams/$IMAGESTREAM_JSON
   IMAGESTREAM_DOCKERIMAGEREFERENCE=$DOCKERIMAGEREFERENCE:$TAG
   echo "-> image reference : $IMAGESTREAM_DOCKERIMAGEREFERENCE"
 }
