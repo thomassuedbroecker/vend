@@ -97,10 +97,10 @@ function createAndApplyBuildConfig () {
   oc describe imagestream
   
   echo "-> extract image reference: $OS_IMAGE_STREAM"
-  oc get imagestream "$OS_IMAGE_STREAM" -o json > ../image-stream/$IMAGESTREAM_JSON
-  DOCKERIMAGEREFERENCE=$(cat ../image-stream/$FRONTEND_IMAGESTREAM_JSON | jq '.status.dockerImageRepository' | sed 's/"//g')
-  TAG=$(cat ../image-stream/$IMAGESTREAM_JSON | jq '.status.tags[].tag' | sed 's/"//g')
-  rm -f ../image-stream/$IMAGESTREAM_JSON
+  oc get imagestream "$OS_IMAGE_STREAM" -o json > ../image-streams/$IMAGESTREAM_JSON
+  DOCKERIMAGEREFERENCE=$(cat ../image-streams/$IMAGESTREAM_JSON | jq '.status.dockerImageRepository' | sed 's/"//g')
+  TAG=$(cat ../image-streams/$IMAGESTREAM_JSON | jq '.status.tags[].tag' | sed 's/"//g')
+  rm -f ../image-streams/$IMAGESTREAM_JSON
   IMAGESTREAM_DOCKERIMAGEREFERENCE=$DOCKERIMAGEREFERENCE:$TAG
   echo "-> image reference : $IMAGESTREAM_DOCKERIMAGEREFERENCE"
 }
@@ -109,7 +109,7 @@ function createDeployment () {
   echo "-> prepare deployment config"
   KEY_TO_REPLACE=CONTAINER_IMAGE_1
   echo "-> image: $IMAGESTREAM_DOCKERIMAGEREFERENCE"
-  sed "s+$KEY_TO_REPLACE+$IMAGESTREAM_DOCKERIMAGEREFERENCE+g" "${root_folder}/openshift/config/deployments/$TEMPLATE_DEPLOYMENT_CONFIG_FILE" > ${root_folder}/openshift/config/deployments/$FRONTEND_DEPOLYMENT_CONFIG_FILE
+  sed "s+$KEY_TO_REPLACE+$IMAGESTREAM_DOCKERIMAGEREFERENCE+g" "${root_folder}/openshift/config/deployments/$TEMPLATE_DEPLOYMENT_CONFIG_FILE" > ${root_folder}/openshift/config/deployments/$DEPOLYMENT_CONFIG_FILE
   
   echo "-> create deployment config"
   oc apply -f "${root_folder}/openshift/config/deployments/$DEPOLYMENT_CONFIG_FILE"
