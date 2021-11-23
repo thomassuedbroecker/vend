@@ -54,14 +54,6 @@ function createConfigMap () {
 }
 
 function createAndApplyBuildConfig () {  
-  echo "-> delete imagestream"
-  oc delete imagestream $OS_IMAGE_STREAM
-  oc describe imagestream $OS_IMAGE_STREAM
-
-  echo "-> delete build config"
-  oc delete build $OS_BUILD
-  oc describe bc/$OS_BUILD
-
   echo "-> prepare image stream"
   KEY_TO_REPLACE=IMAGE_STREAM_1
   sed "s+$KEY_TO_REPLACE+$OS_IMAGE_STREAM+g" "${root_folder}/openshift/config/image-streams/$TEMPLATE_IMAGESTREAM_CONFIG_FILE" > ${root_folder}/openshift/config/image-streams/$IMAGESTREAM_CONFIG_FILE
