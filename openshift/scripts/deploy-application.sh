@@ -67,7 +67,7 @@ function createAndApplyBuildConfig () {
 
   echo "-> prepare image stream"
   KEY_TO_REPLACE=IMAGE_STREAM_1
-  sed "s+$KEY_TO_REPLACE+$OS_IMAGE_STREAM+g" "${root_folder}/openshift/config/image-streams/$TEMPLATE_IMAGESTREAM_CONFIG_FILE" > ${root_folder}/openshift/config/s/$IMAGESTREAM_CONFIG_FILE
+  sed "s+$KEY_TO_REPLACE+$OS_IMAGE_STREAM+g" "${root_folder}/openshift/config/image-streams/$TEMPLATE_IMAGESTREAM_CONFIG_FILE" > ${root_folder}/openshift/config/image-streams/$IMAGESTREAM_CONFIG_FILE
  
   echo "-> create image stream" 
   oc apply -f "${root_folder}/openshift/config/image-streams/$IMAGESTREAM_CONFIG_FILE"
