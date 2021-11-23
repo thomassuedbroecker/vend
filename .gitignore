@@ -12,3 +12,10 @@ npm-debug.log*
 *.sw?
 .env
 site/
+
+#openshift configuration
+build-config.yaml
+route-config.yaml
+imagestream-config.yaml
+deployment-config.yaml
+.yaml

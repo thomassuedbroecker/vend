@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # **************** Global variables
-root_folder=$(cd $(dirname $0); cd ../../../; pwd)
+root_folder=$(cd $(dirname $0); cd ../../; pwd)
+echo "Path: $root_folder"
+read
 # build config
 export GIT_REPO="https://github.com/IBM/multi-tenancy"
 export TEMPLATE_BUILD_CONFIG_FILE="build-config-template.yaml"
@@ -41,7 +43,7 @@ function _out() {
 
 function createPVCs () { 
   echo "-> create persistance volume claims"
-  oc apply -f "${root_folder}/openshift/config/perstiant-volume-claim-config/secrets-config.yaml"
+  oc apply -f "${root_folder}/openshift/config/perstiant-volume-claim-config/pvcs.yaml"
 }
 
 function createSecrets () { 
@@ -68,7 +70,7 @@ function createAndApplyBuildConfig () {
   sed "s+$KEY_TO_REPLACE+$OS_IMAGE_STREAM+g" "${root_folder}/openshift/config/image-streams/$TEMPLATE_IMAGESTREAM_CONFIG_FILE" > ${root_folder}/openshift/config/image-stream/$FRONTEND_IMAGESTREAM_CONFIG_FILE
  
   echo "-> create image stream" 
-  oc apply -f "${root_folder}/openshift/deployments/image-stream/$IMAGESTREAM_CONFIG_FILE"
+  oc apply -f "${root_folder}/openshift/config/image-stream/$IMAGESTREAM_CONFIG_FILE"
   oc describe imagestream
   #oc describe is/$OS_IMAGE_STREAM
   
