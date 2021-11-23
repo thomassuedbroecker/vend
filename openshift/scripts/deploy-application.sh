@@ -161,7 +161,7 @@ echo "--------------------"
 createPVCs
 
 echo "--------------------"
-echo " 3. Create secrects"
+echo " 3. Create secrets"
 echo "--------------------"
 createSecrets
 
