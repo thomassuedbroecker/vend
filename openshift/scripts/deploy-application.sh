@@ -2,8 +2,7 @@
 
 # **************** Global variables
 root_folder=$(cd $(dirname $0); cd ../../; pwd)
-echo "Path: $root_folder"
-read
+echo "Working path: [$root_folder]"
 # build config
 export GIT_REPO="https://github.com/IBM/multi-tenancy"
 export TEMPLATE_BUILD_CONFIG_FILE="build-config-template.yaml"
@@ -19,16 +18,14 @@ export DEPOLYMENT_CONFIG_FILE="deployment-config.yaml"
 # route config
 export TEMPLATE_ROUTE_CONFIGE_FILE="route-config-template.yaml"
 export ROUTE_CONFIGE_FILE="route-config.yaml"
-
 # OpenShift
 export OS_PROJECT="vend-image-stream"
-export OS_BUILD="vend-build"
+export OS_BUILD="vend-build-config"
 export OS_IMAGE_STREAM="vend-image-stream"
-export OS_DOMAIN=""
 export OS_SERVICE="vend-service"
 
-
 # **************** Load environments variables
+export OS_DOMAIN=""
 
 # change the standard output
 exec 3>&1
