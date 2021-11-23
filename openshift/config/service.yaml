@@ -1,0 +1,27 @@
+c apply -f service.yaml 
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+kind: Service
+apiVersion: v1
+metadata:
+  name: vend
+  labels:
+    app: vend
+spec:
+  selector:
+    app: vend
+  ports:
+    - port: 3000
+      name: http
+  type: NodePort

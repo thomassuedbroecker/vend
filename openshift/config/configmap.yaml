@@ -1,0 +1,6 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: vend-usage
+data:
+  VEND_USAGE: "vend-demo-secret-openshift"

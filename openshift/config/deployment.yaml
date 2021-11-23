@@ -1,0 +1,69 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: vend
+spec:
+  selector:
+    matchLabels:
+      app: vend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vend
+        version: v1
+    spec:
+      volumes:
+      - name: vend-volume-accesscodes
+        persistentVolumeClaim:
+          claimName: vend-pvc-accesscodes
+      - name: vend-volume-logs
+        persistentVolumeClaim:
+          claimName: vend-pvc-logs
+      containers:
+      - name: vend
+        image: us.icr.io/vend-openshift/vend:v1
+        livenessProbe:
+          exec:
+            command: ["sh", "-c", "curl http://localhost:3000/"]
+          initialDelaySeconds: 20
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "curl http://localhost:3000/health"]
+          initialDelaySeconds: 40
+        env:
+        - name: VEND_USAGE
+          valueFrom:
+            configMapKeyRef:
+              name: vend-usage
+              key: VEND_USAGE
+        - name: USER
+          valueFrom:
+            secretKeyRef:
+              name: vend-user-creds
+              key: VEND_USER
+        - name: USERPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vend-user-creds
+              key: VEND_USER_PASSWORD
+        - name: ADMINUSER
+          valueFrom:
+            secretKeyRef:
+              name: vend-admin-creds
+              key: VEND_ADMIN
+        - name: ADMINUSERPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vend-admin-creds
+              key: VEND_ADMIN_PASSWORD
+        volumeMounts:
+          - mountPath: /usr/src/app/accesscodes
+            name: vend-volume-accesscodes
+          - mountPath: /usr/src/app/logs
+            name: vend-volume-logs
+        ports:
+        - containerPort: 3000
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: [REGISTRY_SECRET_NAME] 
