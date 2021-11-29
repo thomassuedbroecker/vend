@@ -108,6 +108,9 @@ function createDeployment () {
 function createProject () {
   echo "-> delete project"
   oc delete project "$OS_PROJECT"
+  oc get pv
+  oc delete pvc/vend-pvc-logs
+  oc delete pvc/vend-pvc-accesscodes
   echo "-> status project"
   oc status
   echo "-> verify project is deleted"

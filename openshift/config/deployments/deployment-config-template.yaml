@@ -43,7 +43,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: vend-secrets
-              key: user
+              key: username
         - name: USERPASSWORD
           valueFrom:
             secretKeyRef:
