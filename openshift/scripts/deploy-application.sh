@@ -148,11 +148,14 @@ function createSecureRoute () {
   echo "-> create hostname"
   NAME=vend-sec
   export OS_HOSTNAME=$NAME.$OS_DOMAIN
-  oc create route edge --service vend \
+  echo "-> create route"
+  oc create route edge --service vend-service \
                        --key ../secrets/tls.key \
                        --cert ../secrets/tls.crt \
                        --hostname=$OS_HOSTNAME \
                        --port=3000
+  rm -f ../secrets/tls.crt
+  rm -f ../secrets/tls.key
 }
 
 # **********************************************************************************
