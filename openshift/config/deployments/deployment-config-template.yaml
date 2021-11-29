@@ -53,12 +53,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: vend-secrets
-              key: admin
+              key: adminuser
         - name: ADMINUSERPASSWORD
           valueFrom:
             secretKeyRef:
               name: vend-secrets
-              key: adminuser
+              key: adminpassword
         volumeMounts:
           - mountPath: /usr/src/app/accesscodes
             name: vend-volume-accesscodes
