@@ -204,5 +204,5 @@ createService
 echo "--------------------"
 echo " 8. Create routes"
 echo "--------------------"
-createRoute
+# createRoute
 createSecureRoute
