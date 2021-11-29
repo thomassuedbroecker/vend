@@ -69,7 +69,7 @@ function createAndApplyBuildConfig () {
   sed "s+$KEY_TO_REPLACE+$GIT_REPO+g" "${root_folder}/openshift/config/build-config/$TEMPLATE_BUILD_CONFIG_FILE" > ${root_folder}/openshift/config/build-config/tmp.yaml
   KEY_TO_REPLACE=IMAGE_STREAM_1 
   sed "s+$KEY_TO_REPLACE+$OS_IMAGE_STREAM+g" "${root_folder}/openshift/config/build-config/tmp.yaml" > ${root_folder}/openshift/config/build-config/$BUILD_CONFIG_FILE
-  rm -f ./tmp.yaml
+  rm -f ${root_folder}/openshift/config/build-config/tmp.yaml
 
   echo "-> create build config"
   oc apply -f "${root_folder}/openshift/config/build-config/$BUILD_CONFIG_FILE"
@@ -149,7 +149,8 @@ function createSecureRoute () {
   NAME=vend-sec
   export OS_HOSTNAME=$NAME.$OS_DOMAIN
   echo "-> create route"
-  oc create route edge --service vend-service \
+  oc create route edge vend-sec-route \
+                       --service vend-service \
                        --key ../secrets/tls.key \
                        --cert ../secrets/tls.crt \
                        --hostname=$OS_HOSTNAME \
