@@ -13,7 +13,7 @@ spec:
     type: Git
     git:
       uri: 'GIT_REPO_1'
-      ref: vend-image-stream
+      ref: vend-sec-route
     contextDir: /
   strategy:
     type: Docker                      

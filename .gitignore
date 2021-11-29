@@ -19,3 +19,5 @@ route-config.yaml
 imagestream-config.yaml
 deployment-config.yaml
 .yaml
+tls.crt
+tls.key

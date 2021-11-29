@@ -19,10 +19,11 @@ export DEPOLYMENT_CONFIG_FILE="deployment-config.yaml"
 export TEMPLATE_ROUTE_CONFIGE_FILE="route-config-template.yaml"
 export ROUTE_CONFIGE_FILE="route-config.yaml"
 # OpenShift
-export OS_PROJECT="vend-image-stream"
+export OS_PROJECT="vend-sec"
 export OS_BUILD="vend-build-config"
 export OS_IMAGE_STREAM="vend-image-stream"
 export OS_SERVICE="vend-service"
+export OS_CLUSTERNAME="roks-gen2-suedbro"
 
 # **************** Load environments variables
 export OS_DOMAIN=""
@@ -135,6 +136,25 @@ function createRoute () {
   rm -f ${root_folder}/openshift/config/routes/tmp.yaml
 }
 
+function createSecureRoute () {
+  echo "-> get ingress domain of the cluster"
+  OS_DOMAIN=$(oc get ingresses.config/cluster -o jsonpath={.spec.domain})
+  echo "-> domain: $OS_DOMAIN"
+  echo "-> get ingress secret of the cluster"
+  export INGRESS_SECRET=$(oc get secrets -n openshift-ingress | grep "$OS_CLUSTERNAME" | awk '{print $1;}')
+  echo "-> secret: $INGRESS_SECRET"
+  echo "-> export secret"
+  oc extract secret/$INGRESS_SECRET --to=../secrets -n openshift-ingress
+  echo "-> create hostname"
+  NAME=vend-sec
+  export OS_HOSTNAME=$NAME.$OS_DOMAIN
+  oc create route edge --service vend \
+                       --key ../secrets/tls.key \
+                       --cert ../secrets/tls.crt \
+                       --hostname=$OS_HOSTNAME \
+                       --port=3000
+}
+
 # **********************************************************************************
 # Execution
 # **********************************************************************************
@@ -175,6 +195,7 @@ echo "--------------------"
 createService
 
 echo "--------------------"
-echo " 8. Create route"
+echo " 8. Create routes"
 echo "--------------------"
 createRoute
+createSecureRoute
