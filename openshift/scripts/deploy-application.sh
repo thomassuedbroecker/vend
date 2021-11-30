@@ -125,20 +125,6 @@ function createService () {
   oc apply -f "${root_folder}/openshift/config/services/service-config.yaml"
 }
 
-function createRoute () {
-  echo "-> get ingress domain of the cluster"
-  OS_DOMAIN=$(oc get ingresses.config/cluster -o jsonpath={.spec.domain})
-  echo "-> domain: $OS_DOMAIN"
-  echo "-> prepare route"
-  KEY_TO_REPLACE=OC_DOMAIN_1
-  sed "s+$KEY_TO_REPLACE+$OS_DOMAIN+g" "${root_folder}/openshift/config/routes/$TEMPLATE_ROUTE_CONFIGE_FILE" > ${root_folder}/openshift/config/routes/tmp.yaml
-  KEY_TO_REPLACE=OC_SERVICE_1
-  sed "s+$KEY_TO_REPLACE+$OS_SERVICE+g" "${root_folder}/openshift/config/routes/tmp.yaml" > ${root_folder}/openshift/config/routes/$ROUTE_CONFIGE_FILE
-  echo "-> create route"
-  oc apply -f "${root_folder}/openshift/config/routes/$ROUTE_CONFIGE_FILE"
-  rm -f ${root_folder}/openshift/config/routes/tmp.yaml
-}
-
 function createSecureRoute () {
   echo "-> get ingress domain of the cluster"
   OS_DOMAIN=$(oc get ingresses.config/cluster -o jsonpath={.spec.domain})
@@ -202,7 +188,6 @@ echo "--------------------"
 createService
 
 echo "--------------------"
-echo " 8. Create routes"
+echo " 8. Create secure route"
 echo "--------------------"
-# createRoute
 createSecureRoute
