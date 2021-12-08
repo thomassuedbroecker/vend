@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: vend-vpc-nlb-us-south-1
   annotations:
-    service.kubernetes.io/ibm-load-balancer-cloud-provider-enable-features: "nlb"
+    service.kubernetes.io/ibm-load-balancer-cloud-provider-enable-features: "proxy-protocol"
     service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
     service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-node-selector: "ibm-cloud.kubernetes.io/subnet-id=0717-e8f629c4-c26f-4cdd-ad1a-bfe2bd8a80f9"
     service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-subnets: "0717-e8f629c4-c26f-4cdd-ad1a-bfe2bd8a80f9"

@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: APP_NAME-vpc-nlb-VPC_ZONE
   annotations:
-    service.kubernetes.io/ibm-load-balancer-cloud-provider-enable-features: "nlb"
+    service.kubernetes.io/ibm-load-balancer-cloud-provider-enable-features: "proxy-protocol"
     service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
     service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-node-selector: "ibm-cloud.kubernetes.io/subnet-id=SUBNET_ID"
     service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-subnets: "SUBNET_ID"

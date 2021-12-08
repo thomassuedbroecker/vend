@@ -22,7 +22,6 @@ export APP_NAME=vend
 export VPC_ZONE=""
 export TEMPLATE_PRIVATE_LOAD_BALANCER_CONFIG_FILE="vend-private-load-balancer-template.yaml"
 export PRIVATE_LOAD_BALANCER_CONFIG_FILE="vend-private-load-balancer.yaml"
-export PRIVATE_ROUTING_TABLE="private-routing-table"
 
 # *** VPC extract
 export VPC_ID=""
@@ -106,18 +105,7 @@ createPrivateLoadbalancerService() {
    #oc delete -f ${root_folder}/openshift/config/private-loadbalancer/$PRIVATE_LOAD_BALANCER_CONFIG_FILE -n $OC_PROJECT
    #rm -f ${root_folder}/openshift/config/private-loadbalancer/$PRIVATE_LOAD_BALANCER_CONFIG_FILE
    ibmcloud is load-balancers
-}
 
-createRoutingTable() {
-   echo "-> ------------------------------------------------------------"
-   echo "- 
-   create private routing table: $PRIVATE_ROUTING_TABLE"
-   echo "-> ------------------------------------------------------------"   
-   ibmcloud is vpc-routing-table-route-create $VPC_ID $PRIVATE_ROUTING_TABLE \
-                                               --vpc-zone-ingress true \
-                                               --output JSON \
-                                               > tmp.json
-   #                                                --vpc-zone-ingress true \
 }
 
 # **********************************************************************************
@@ -137,10 +125,6 @@ echo "<-- PRESS ANY KEY"
 read
 
 preparePrivateLoadbalancerService
-echo "<-- PRESS ANY KEY"
-read
-
-createRoutingTable
 echo "<-- PRESS ANY KEY"
 read
 
