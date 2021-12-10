@@ -1,23 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: vend-vpc-nlb-us-south-1
+  name: vend-sec-vpc-nlb-us-south-1
   annotations:
-    service.kubernetes.io/ibm-load-balancer-cloud-provider-enable-features: "proxy-protocol"
+    service.kubernetes.io/ibm-load-balancer-cloud-provider-enable-features: "nlb"
     service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
-    service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-node-selector: "ibm-cloud.kubernetes.io/subnet-id=0717-e8f629c4-c26f-4cdd-ad1a-bfe2bd8a80f9"
     service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-subnets: "0717-e8f629c4-c26f-4cdd-ad1a-bfe2bd8a80f9"
     service.kubernetes.io/ibm-load-balancer-cloud-provider-zone: "us-south-1"
 spec:
   type: LoadBalancer
   selector:
-    app: vend
+    privateLoadbalancer: vend-application
   ports:
    - name: http
      protocol: TCP
-     port: 3000
-     targetPort: 3000
-   - name: https
-     protocol: TCP
-     port: 443
+     port: 8080
+     targetPort: 8080
   externalTrafficPolicy: Local

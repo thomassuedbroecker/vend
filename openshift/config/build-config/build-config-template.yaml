@@ -13,7 +13,7 @@ spec:
     type: Git
     git:
       uri: 'GIT_REPO_1'
-      ref: vend-sec-route
+      ref: vend-internal-vpc-route
     contextDir: /
   strategy:
     type: Docker                      

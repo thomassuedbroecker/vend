@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // *******
 var cors = require("cors"); // Cors
 app.use(cors());
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 var auth = require('basic-auth'); 
 
 // *******
@@ -659,7 +659,7 @@ function logtofile(message) {
 /*****************************/
 
 const server = app.listen(port, function () {
-    console.log('vend backend is running'); 
+    console.log('vend backend is running on port ', port); 
     if (loadAccessCodes()==false){
         initAccessCodes();
     }  

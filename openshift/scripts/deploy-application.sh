@@ -143,7 +143,7 @@ function createSecureRoute () {
                        --key ../secrets/tls.key \
                        --cert ../secrets/tls.crt \
                        --hostname=$OS_HOSTNAME \
-                       --port=3000
+                       --port=8080
   rm -f ../secrets/tls.crt
   rm -f ../secrets/tls.key
 }
@@ -156,38 +156,54 @@ echo "--------------------"
 echo " 1. Create project"
 echo "--------------------"
 createProject
+echo "<-- PRESS ANY KEY"
+read
 
 echo "--------------------"
 echo " 2. Create persistant volume claims"
 echo "--------------------"
 createPVCs
+echo "<-- PRESS ANY KEY"
+read
 
 echo "--------------------"
 echo " 3. Create secrets"
 echo "--------------------"
 createSecrets
+echo "<-- PRESS ANY KEY"
+read
 
 echo "--------------------"
 echo " 4. Create configmap"
 echo "--------------------"
 createConfigMap
+echo "<-- PRESS ANY KEY"
+read
 
 echo "--------------------"
 echo " 5. Create and apply build"
 echo "--------------------"
 createAndApplyBuildConfig
+echo "<-- PRESS ANY KEY"
+read
 
 echo "--------------------"
 echo " 6. Create deployment"
 echo "--------------------"
 createDeployment
+echo "<-- PRESS ANY KEY"
+read
 
 echo "--------------------"
 echo " 7. Create service"
 echo "--------------------"
 createService
+echo "<-- PRESS ANY KEY"
+read
 
 echo "--------------------"
 echo " 8. Create secure route"
 echo "--------------------"
 createSecureRoute
+echo "<-- PRESS ANY KEY"
+read

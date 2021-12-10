@@ -11,14 +11,14 @@ export REGION="us-south"
 # *** VPC
 export VPC_NAME="partner-verify"
 # *** OpenShift
-export OC_PROJECT="vend-icc-dev"
+export OC_PROJECT="vend-sec"
 
 # ***************** don't change
 # *** set rootfolder path
 root_folder=$(cd $(dirname $0); cd ../../; pwd)
 echo "Working path: [$root_folder]"
 # *** Loadbalancer configuration
-export APP_NAME=vend
+export APP_NAME=vend-sec
 export VPC_ZONE=""
 export TEMPLATE_PRIVATE_LOAD_BALANCER_CONFIG_FILE="vend-private-load-balancer-template.yaml"
 export PRIVATE_LOAD_BALANCER_CONFIG_FILE="vend-private-load-balancer.yaml"
@@ -26,6 +26,7 @@ export PRIVATE_LOAD_BALANCER_CONFIG_FILE="vend-private-load-balancer.yaml"
 # *** VPC extract
 export VPC_ID=""
 export SUBNET_ID=""
+export SUBNET_NAME=""
 export DEFAULT_NETWORK_ACL_ID=""
 export DEFAULT_ROUTING_TABLE_ID=""
 export DEFAULT_SECURITY_GROUP_ID=""
@@ -65,6 +66,7 @@ function getVPCconfig() {
     DEFAULT_SECURITY_GROUP_ID=$(cat ./$TMP_VPC_CONFIG | jq '.vpc.default_security_group.id' | sed 's/"//g')
     FIRST_ZONE=$(cat ./$TMP_VPC_CONFIG | jq '.vpc.cse_source_ips[0].zone.name' | sed 's/"//g')
     SUBNET_ID=$(cat ./$TMP_VPC_CONFIG | jq '.subnets[0].id' | sed 's/"//g')
+    SUBNET_NAME=$(cat ./$TMP_VPC_CONFIG | jq '.subnets[0].name' | sed 's/"//g')
     echo "- Network acl ID    : $DEFAULT_NETWORK_ACL_ID"
     echo "- Routing table ID  : $DEFAULT_ROUTING_TABLE_ID"
     echo "- Security group ID : $DEFAULT_SECURITY_GROUP_ID"

@@ -1,18 +1,19 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: vend-deployment
+  name: vend-app
   labels:
       app: vend-app
+      privateLoadbalancer: vend-application
 spec:
   selector:
     matchLabels:
-      app: vend
+      app: vend-app
   replicas: 1
   template:
     metadata:
       labels:
-        app: vend
+        app: vend-app
         version: v1
     spec:
       volumes:
@@ -23,15 +24,15 @@ spec:
         persistentVolumeClaim:
           claimName: vend-pvc-logs
       containers:
-      - name: vend
+      - name: vend-app
         image: CONTAINER_IMAGE_1
         livenessProbe:
           exec:
-            command: ["sh", "-c", "curl http://localhost:3000/"]
+            command: ["sh", "-c", "curl http://localhost:8080/"]
           initialDelaySeconds: 20
         readinessProbe:
           exec:
-            command: ["sh", "-c", "curl http://localhost:3000/health"]
+            command: ["sh", "-c", "curl http://localhost:8080/health"]
           initialDelaySeconds: 40
         env:
         - name: VEND_USAGE
@@ -65,5 +66,5 @@ spec:
           - mountPath: /usr/src/app/logs
             name: vend-volume-logs
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
       restartPolicy: Always

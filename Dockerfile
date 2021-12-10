@@ -34,5 +34,5 @@ RUN chmod -R 777 /usr/src/app && \
 COPY ./docker_entrypoint.sh .
 COPY ./generate_env-config.sh .
 
-EXPOSE 3000
+EXPOSE 8080
 CMD ["/bin/sh","docker_entrypoint.sh"]

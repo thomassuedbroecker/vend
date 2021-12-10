@@ -6,8 +6,8 @@ metadata:
     app: vend-app
 spec:
   selector:
-    app: vend
+    app: vend-app
   ports:
-    - port: 3000
+    - port: 8080
       name: http
   type: NodePort
