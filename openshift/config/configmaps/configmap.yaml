@@ -3,4 +3,4 @@ apiVersion: v1
 metadata:
   name: vend-config
 data:
-  VEND_USAGE: "vend-image-stream-demo-openshift"
+  VEND_USAGE: "vend-load-balancer-demo-openshift"
