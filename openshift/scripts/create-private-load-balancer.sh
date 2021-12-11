@@ -104,8 +104,6 @@ createPrivateLoadbalancerService() {
    
    oc apply -f ${root_folder}/openshift/config/private-loadbalancer/$PRIVATE_LOAD_BALANCER_CONFIG_FILE -n $OC_PROJECT
    oc describe svc "$APP_NAME-vpc-nlb-$VPC_ZONE" -n $OC_PROJECT
-   #oc delete -f ${root_folder}/openshift/config/private-loadbalancer/$PRIVATE_LOAD_BALANCER_CONFIG_FILE -n $OC_PROJECT
-   #rm -f ${root_folder}/openshift/config/private-loadbalancer/$PRIVATE_LOAD_BALANCER_CONFIG_FILE
    ibmcloud is load-balancers
 
 }
