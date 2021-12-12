@@ -4,13 +4,14 @@ metadata:
   name: APP_NAME-vpc-nlb-VPC_ZONE
   labels:
     customerLoadbalancer: vend-application
+    app: vend-app
   annotations:
     service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
     service.kubernetes.io/ibm-load-balancer-cloud-provider-zone: "VPC_ZONE"
 spec:
   type: LoadBalancer
   selector:
-    privateLoadbalancer: vend-application
+    app: vend-app
   ports:
    - name: http
      protocol: TCP
