@@ -103,7 +103,7 @@ checkEnv();
 
 // Return one code
 app.post('/getAccessCode', (req, res) => {
-    message="invocation: /listAccessCodes";
+    message="invocation: [/listAccessCodes] and req=[ " + JSON.stringify(req) + "]";
     logtofile(message);
 
     var credentials = auth(req);
@@ -152,7 +152,7 @@ app.post('/getAccessCode', (req, res) => {
 
 // List codes
 app.post('/listAccessCodes', (req, res) => {
-  message="invocation: /listAccessCodes";
+  message="invocation: /listAccessCodes and req=[ " + JSON.stringify(req) + "]";
   logtofile(message);
 
   var credentials = auth(req);
@@ -199,7 +199,7 @@ app.post('/listAccessCodes', (req, res) => {
 
 // Update codes
 app.post('/updateAccessCodes', (req, res) => {
-  message="invocation: /updateAccessCodes"
+  message="invocation: /updateAccessCodes and req=[ " + JSON.stringify(req) + "]";
   logtofile(message);
 
   var credentials = auth(req);
@@ -294,7 +294,7 @@ app.post('/updateAccessCodes', (req, res) => {
 // Health check
 app.get('/health', function(req, res) {
   var returnvalue = {};
-  message="invocation: /health";
+  message="invocation: /health and req=[ " + JSON.stringify(req) + "]";;
   logtofile(message);
   
   if(envDefined == false){
@@ -316,7 +316,7 @@ app.get('/health', function(req, res) {
 
 // Basic return
 app.get('/', function(req, res) {
-  message="invocation: /";
+  message="invocation: [/] and req=[ " + JSON.stringify(req) + "]";
   logtofile(message);
   var credentials = auth(req);
   var returnvalue = {};
