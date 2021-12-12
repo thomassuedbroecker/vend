@@ -294,7 +294,7 @@ app.post('/updateAccessCodes', (req, res) => {
 // Health check
 app.get('/health', function(req, res) {
   var returnvalue = {};
-  message="invocation: /health and req=[ " + JSON.stringify(req) + "]";;
+  message="invocation: /health and req=[ " + JSON.stringify(req) + "]";
   logtofile(message);
   
   if(envDefined == false){
