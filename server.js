@@ -103,6 +103,8 @@ checkEnv();
 
 // Return one code
 app.post('/getAccessCode', (req, res) => {
+    message="invocation: /listAccessCodes";
+    logtofile(message);
 
     var credentials = auth(req);
    
@@ -150,6 +152,8 @@ app.post('/getAccessCode', (req, res) => {
 
 // List codes
 app.post('/listAccessCodes', (req, res) => {
+  message="invocation: /listAccessCodes";
+  logtofile(message);
 
   var credentials = auth(req);
   var returnvalue = {};
@@ -195,6 +199,8 @@ app.post('/listAccessCodes', (req, res) => {
 
 // Update codes
 app.post('/updateAccessCodes', (req, res) => {
+  message="invocation: /updateAccessCodes"
+  logtofile(message);
 
   var credentials = auth(req);
   var returnvalue = {};
@@ -288,6 +294,8 @@ app.post('/updateAccessCodes', (req, res) => {
 // Health check
 app.get('/health', function(req, res) {
   var returnvalue = {};
+  message="invocation: /health";
+  logtofile(message);
   
   if(envDefined == false){
     res.body=returnvalue;
@@ -308,6 +316,8 @@ app.get('/health', function(req, res) {
 
 // Basic return
 app.get('/', function(req, res) {
+  message="invocation: /";
+  logtofile(message);
   var credentials = auth(req);
   var returnvalue = {};
   
@@ -368,7 +378,7 @@ app.get('/', function(req, res) {
 // ***************
 
 function check (name, pass) {
-  var valid = true
+  var valid = true;
  
   var username=vending_username;
   var password=vending_password;
@@ -659,7 +669,7 @@ function logtofile(message) {
 /*****************************/
 
 const server = app.listen(port, function () {
-    console.log('vend backend is running on port ', port); 
+    console.log('vend backend is running on port ', port);
     if (loadAccessCodes()==false){
         initAccessCodes();
     }  
