@@ -3,6 +3,7 @@ var app = express();
 
 // load and save values to the filesystem
 var fs = require('fs'); 
+
 // use environment variables file
 const dotenv = require('dotenv');
 dotenv.config();
@@ -19,6 +20,10 @@ app.use(cors());
 var port = process.env.PORT || 8080;
 var auth = require('basic-auth'); 
 
+// *******
+// File log
+// *******
+var disable_file_log = true;
 // *******
 // Cloudant
 // *******
@@ -647,21 +652,26 @@ function checkServiceSource(Headers){
 // log to a file
 function logtofile(message) {
   
-  var d = new Date();
-  var month = d.getMonth() + 1;
-  var today = d.getFullYear() + "-" + month + "-" + d.getDate();
-  d.getHours
-  var log_entry = "*** INF0: " + today +  " (" + 
-                  d.getHours() + ":" + 
-                  d.getMinutes () + ":" + 
-                  d.getSeconds() + ")" + 
-                  " [" + d.getTime() + "] " + message + "\r\n";
-  console.log("** Write to logfile ", log_filename );
-  fs.writeFile(log_filename, log_entry, { flag: "a+" }, (err) => {
-    if (err) throw err;
-    console.log("** Logfile updated successfully: ", log_filename);
-  });
+  if (disable_file_log == false ) {
+    var d = new Date();
+    var month = d.getMonth() + 1;
+    var today = d.getFullYear() + "-" + month + "-" + d.getDate();
+    d.getHours
+    var log_entry = "*** INF0: " + today +  " (" + 
+                    d.getHours() + ":" + 
+                    d.getMinutes () + ":" + 
+                    d.getSeconds() + ")" + 
+                    " [" + d.getTime() + "] " + message + "\r\n";
+    console.log("** Write to logfile ", log_filename );
+    fs.writeFile(log_filename, log_entry, { flag: "a+" }, (err) => {
+      if (err) throw err;
+      console.log("** Logfile updated successfully: ", log_filename);
+    });
 
+  } else {
+    console.log("-> disable_file_log == true")
+  }
+ 
 }
 
 /*****************************/
