@@ -23,3 +23,6 @@ tmp.yaml
 tls.crt
 tls.key
 vend-private-load-balancer.yaml
+
+# VSI Ngnix configuration
+ngnix.conf

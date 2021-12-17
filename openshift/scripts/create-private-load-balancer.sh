@@ -22,6 +22,8 @@ export APP_NAME=vend-sec
 export VPC_ZONE=""
 export TEMPLATE_PRIVATE_LOAD_BALANCER_CONFIG_FILE="vend-private-load-balancer-template.yaml"
 export PRIVATE_LOAD_BALANCER_CONFIG_FILE="vend-private-load-balancer.yaml"
+export TEMPLATE_NGINX_CONFIG_FILE=ngnix-template.conf
+export NGINX_CONFIG_FILE=ngnix.conf
 
 # *** VPC extract
 export VPC_ID=""
@@ -104,8 +106,14 @@ createPrivateLoadbalancerService() {
    
    oc apply -f ${root_folder}/openshift/config/private-loadbalancer/$PRIVATE_LOAD_BALANCER_CONFIG_FILE -n $OC_PROJECT
    oc describe svc "$APP_NAME-vpc-nlb-$VPC_ZONE" -n $OC_PROJECT
-   ibmcloud is load-balancers
+   LOADBALANCER_HOSTNAME=$(oc describe svc "$APP_NAME-vpc-nlb-$VPC_ZONE" -n $OC_PROJECT | grep 'LoadBalancer Ingress' | awk '{print $3;}')
+   echo "$LOADBALANCER_HOSTNAME"
 
+   echo "-> ------------------------------------------------------------"
+   echo "- create customized ngnix.conf file"
+   echo "-> ------------------------------------------------------------"  
+   KEY_1_TO_REPLACE=LOADBALANCER_HOSTNAME
+   sed "s+$KEY_1_TO_REPLACE+$LOADBALANCER_HOSTNAME+g" "${root_folder}/openshift/vsi-ngnix/$TEMPLATE_NGINX_CONFIG_FILE" > ${root_folder}/openshift/vsi-ngnix/$NGINX_CONFIG_FILE
 }
 
 # **********************************************************************************
