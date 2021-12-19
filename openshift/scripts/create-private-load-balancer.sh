@@ -111,6 +111,30 @@ createPrivateLoadbalancerService() {
    oc describe svc "$APP_NAME-vpc-nlb-$VPC_ZONE" -n $OC_PROJECT
    LOADBALANCER_HOSTNAME=$(oc describe svc "$APP_NAME-vpc-nlb-$VPC_ZONE" -n $OC_PROJECT | grep 'LoadBalancer Ingress' | awk '{print $3;}')
    echo "$LOADBALANCER_HOSTNAME"
+   
+   STATUS=""
+   array=("$LOADBALANCER_HOSTNAME")
+   for i in "${array[@]}"
+   do 
+        echo ""
+        echo "------------------------------------------------------------------------"
+        echo "Check $i"
+        while :
+        do
+            FIND=$i
+            STATUS_CHECK=$(oc describe svc "$APP_NAME-vpc-nlb-$VPC_ZONE" -n $OC_PROJECT | grep 'LoadBalancer Ingress' | awk '{print $3;}')
+            echo "Status: $STATUS_CHECK"
+            if [ "$STATUS" != "$STATUS_CHECK" ]; then
+                echo "$(date +'%F %H:%M:%S') Status: $FIND is Ready"
+                echo "------------------------------------------------------------------------"
+                break
+            else
+                echo "$(date +'%F %H:%M:%S') Status: $FIND($STATUS_CHECK)"
+                echo "------------------------------------------------------------------------"
+            fi
+            sleep 5
+        done
+   done
 
    echo "-> ------------------------------------------------------------"
    echo "- Create customized ngnix.conf file"
