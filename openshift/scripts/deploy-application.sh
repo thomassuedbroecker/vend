@@ -18,6 +18,8 @@ export DEPOLYMENT_CONFIG_FILE="deployment-config.yaml"
 # route config
 export TEMPLATE_ROUTE_CONFIGE_FILE="route-config-template.yaml"
 export ROUTE_CONFIGE_FILE="route-config.yaml"
+export SECRETS_FOLDER="../config/secrets"
+export SEC_ROUTE_NAME="vend-sec-route"
 # OpenShift
 export OS_PROJECT="vend-sec"
 export OS_BUILD="vend-build-config"
@@ -133,19 +135,24 @@ function createSecureRoute () {
   export INGRESS_SECRET=$(oc get secrets -n openshift-ingress | grep "$OS_CLUSTERNAME" | awk '{print $1;}')
   echo "-> secret: $INGRESS_SECRET"
   echo "-> export secret"
-  oc extract secret/$INGRESS_SECRET --to=../secrets -n openshift-ingress
+  oc extract secret/$INGRESS_SECRET --to=$SECRETS_FOLDER -n openshift-ingress
   echo "-> create hostname"
   NAME=vend-sec
   export OS_HOSTNAME=$NAME.$OS_DOMAIN
   echo "-> create route"
-  oc create route edge vend-sec-route \
+  oc create route edge $SEC_ROUTE_NAME \
                        --service vend-service \
-                       --key ../secrets/tls.key \
-                       --cert ../secrets/tls.crt \
+                       --key $SECRETS_FOLDER/tls.key \
+                       --cert $SECRETS_FOLDER/tls.crt \
                        --hostname=$OS_HOSTNAME \
                        --port=8080
-  rm -f ../secrets/tls.crt
-  rm -f ../secrets/tls.key
+  rm -f $SECRETS_FOLDER/tls.crt
+  rm -f $SECRETS_FOLDER/tls.key
+}
+
+function displayEndpoints () {
+  ROUTE=$(oc get route $SEC_ROUTE_NAME | grep "$SEC_ROUTE_NAME" | awk '{print $2;}')
+  echo "Secure route URL: https://$ROUTE"
 }
 
 # **********************************************************************************
@@ -205,5 +212,12 @@ echo "--------------------"
 echo " 8. Create secure route"
 echo "--------------------"
 createSecureRoute
+echo "<-- PRESS ANY KEY"
+read
+
+echo "--------------------"
+echo " 9. Display routes"
+echo "--------------------"
+displayEndpoints
 echo "<-- PRESS ANY KEY"
 read
