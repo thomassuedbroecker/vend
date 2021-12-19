@@ -327,6 +327,8 @@ app.get('/health', function(req, res) {
 app.get('/', function(req, res) {
   headers=JSON.stringify(req.headers);
   message="invocation: [ / ] req=[ " + req.headers.host + " ; " + headers + " ]";
+  logtofile(message);
+  
   var credentials = auth(req);
   var returnvalue = {};
   
