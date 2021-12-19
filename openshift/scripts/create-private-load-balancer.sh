@@ -12,6 +12,8 @@ export REGION="us-south"
 export VPC_NAME="partner-verify"
 # *** OpenShift
 export OC_PROJECT="vend-sec"
+# *** VSI
+export VSI_NAME="partner-client-tsuedbro"
 
 # ***************** don't change
 # *** set rootfolder path
@@ -24,6 +26,7 @@ export TEMPLATE_PRIVATE_LOAD_BALANCER_CONFIG_FILE="vend-private-load-balancer-te
 export PRIVATE_LOAD_BALANCER_CONFIG_FILE="vend-private-load-balancer.yaml"
 export TEMPLATE_NGINX_CONFIG_FILE=ngnix-template.conf
 export NGINX_CONFIG_FILE=ngnix.conf
+export LOADBALANCER_HOSTNAME=""
 
 # *** VPC extract
 export VPC_ID=""
@@ -89,7 +92,7 @@ function setOCProject () {
 
 function preparePrivateLoadbalancerService () {
   echo "-> ------------------------------------------------------------"
-  echo "- prepare private load balancer service"
+  echo "- Prepare private load balancer service"
   echo "-> ------------------------------------------------------------"
   
   KEY_1_TO_REPLACE=APP_NAME
@@ -101,7 +104,7 @@ function preparePrivateLoadbalancerService () {
 
 createPrivateLoadbalancerService() {
    echo "-> ------------------------------------------------------------"
-   echo "- create private load balancer service"
+   echo "- Create private load balancer service"
    echo "-> ------------------------------------------------------------"
    
    oc apply -f ${root_folder}/openshift/config/private-loadbalancer/$PRIVATE_LOAD_BALANCER_CONFIG_FILE -n $OC_PROJECT
@@ -110,10 +113,20 @@ createPrivateLoadbalancerService() {
    echo "$LOADBALANCER_HOSTNAME"
 
    echo "-> ------------------------------------------------------------"
-   echo "- create customized ngnix.conf file"
+   echo "- Create customized ngnix.conf file"
    echo "-> ------------------------------------------------------------"  
    KEY_1_TO_REPLACE=LOADBALANCER_HOSTNAME
    sed "s+$KEY_1_TO_REPLACE+$LOADBALANCER_HOSTNAME+g" "${root_folder}/openshift/vsi-ngnix/$TEMPLATE_NGINX_CONFIG_FILE" > ${root_folder}/openshift/vsi-ngnix/$NGINX_CONFIG_FILE
+}
+
+function displayEndpoints () {
+  echo "-> ------------------------------------------------------------"
+  echo "- Display endpoints"
+  echo "-> ------------------------------------------------------------"  
+ 
+  echo "VPC($VPC_NAME) private load balancer endpoint: http://$LOADBALANCER_HOSTNAME:80"
+  FLOATING_IP=$(ibmcloud is instances | grep "$VSI_NAME" | awk '{print $5;}')
+  echo "VPC($VPC_NAME), VSI ($VSI_NAME) Ngnix load balancer endpoint: http://$FLOATING_IP/"
 }
 
 # **********************************************************************************
@@ -137,5 +150,9 @@ echo "<-- PRESS ANY KEY"
 read
 
 createPrivateLoadbalancerService
+echo "<-- PRESS ANY KEY"
+read
+
+displayEndpoints
 echo "<-- PRESS ANY KEY"
 read

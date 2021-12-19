@@ -8,6 +8,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
+  storageClassName: ibmc-vpc-block-5iops-tier 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -19,3 +20,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
+  storageClassName: ibmc-vpc-block-5iops-tier

@@ -4,3 +4,32 @@
 *** INF0: 2021-11-8 (10:49:27) [1636368567672] USER : user
 *** INF0: 2021-11-8 (10:49:27) [1636368567672] USER_PASSWORD : user
 *** INF0: 2021-11-8 (10:49:27) [1636368567681] Info - envDefined==false
+*** INF0: 2021-12-19 (15:41:0) [1639924860005] VEND_USAGE : undefined 
+*** INF0: 2021-12-19 (15:41:0) [1639924860010] Info - envDefined==false
+*** INF0: 2021-12-19 (15:41:0) [1639924860006] USER_PASSWORD : undefined 
+*** INF0: 2021-12-19 (15:41:0) [1639924860006] ADMINUSER : undefined 
+*** INF0: 2021-12-19 (15:41:0) [1639924860006] USER : thomassuedbroecker
+*** INF0: 2021-12-19 (15:45:17) [1639925117740] VEND_USAGE : undefined 
+*** INF0: 2021-12-19 (15:45:17) [1639925117744] Info - envDefined==false
+*** INF0: 2021-12-19 (15:45:17) [1639925117741] USER_PASSWORD : undefined 
+*** INF0: 2021-12-19 (15:45:17) [1639925117741] ADMINUSER : undefined 
+*** INF0: 2021-12-19 (15:45:17) [1639925117741] USER : thomassuedbroecker
+*** INF0: 2021-12-19 (15:45:21) [1639925121416] invocation: [ / ] and req=[ / ]
+*** INF0: 2021-12-19 (15:46:50) [1639925210001] VEND_USAGE : undefined 
+*** INF0: 2021-12-19 (15:46:50) [1639925210006] Info - envDefined==false
+*** INF0: 2021-12-19 (15:46:50) [1639925210002] USER_PASSWORD : undefined 
+*** INF0: 2021-12-19 (15:46:50) [1639925210002] ADMINUSER : undefined 
+*** INF0: 2021-12-19 (15:46:50) [1639925210002] USER : thomassuedbroecker
+*** INF0: 2021-12-19 (15:47:2) [1639925222958] invocation: [ / ] and req=[ [object Object] / ]
+*** INF0: 2021-12-19 (15:50:3) [1639925403807] VEND_USAGE : undefined 
+*** INF0: 2021-12-19 (15:50:3) [1639925403811] Info - envDefined==false
+*** INF0: 2021-12-19 (15:50:3) [1639925403808] USER : thomassuedbroecker
+*** INF0: 2021-12-19 (15:50:3) [1639925403808] USER_PASSWORD : undefined 
+*** INF0: 2021-12-19 (15:50:3) [1639925403808] ADMINUSER : undefined 
+*** INF0: 2021-12-19 (15:50:10) [1639925410244] invocation: [ / ] and req=[ localhost:8080 undefined ]
+*** INF0: 2021-12-19 (15:52:43) [1639925563272] VEND_USAGE : undefined 
+*** INF0: 2021-12-19 (15:52:43) [1639925563273] USER : thomassuedbroecker
+*** INF0: 2021-12-19 (15:52:43) [1639925563273] ADMINUSER : undefined 
+*** INF0: 2021-12-19 (15:52:43) [1639925563277] Info - envDefined==false
+*** INF0: 2021-12-19 (15:52:43) [1639925563273] USER_PASSWORD : undefined 
+*** INF0: 2021-12-19 (15:52:47) [1639925567045] invocation: [ / ] req=[ localhost:8080 ; undefined ; undefined ]

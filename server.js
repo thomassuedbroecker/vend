@@ -23,7 +23,7 @@ var auth = require('basic-auth');
 // *******
 // File log
 // *******
-var disable_file_log = true;
+var disable_file_log = false;
 // *******
 // Cloudant
 // *******
@@ -108,7 +108,7 @@ checkEnv();
 
 // Return one code
 app.post('/getAccessCode', (req, res) => {
-    message="invocation: [/listAccessCodes] and req=[ " + JSON.stringify(req) + "]";
+    message="invocation: [/listAccessCodes] req=[ " + req.headers.host + " ; " + req.headers.date + " ; " + req.headers.origin + " ]";
     logtofile(message);
 
     var credentials = auth(req);
@@ -157,7 +157,7 @@ app.post('/getAccessCode', (req, res) => {
 
 // List codes
 app.post('/listAccessCodes', (req, res) => {
-  message="invocation: /listAccessCodes and req=[ " + JSON.stringify(req) + "]";
+  message="invocation: /listAccessCodes req=[ " + req.headers.host + " ; " + req.headers.date + " ; " + req.headers.origin + " ]";
   logtofile(message);
 
   var credentials = auth(req);
@@ -204,7 +204,7 @@ app.post('/listAccessCodes', (req, res) => {
 
 // Update codes
 app.post('/updateAccessCodes', (req, res) => {
-  message="invocation: /updateAccessCodes and req=[ " + JSON.stringify(req) + "]";
+  message="invocation: /updateAccessCodes req=[ " + req.headers.host + " ; " + req.headers.date + " ; " + req.headers.origin + " ]";
   logtofile(message);
 
   var credentials = auth(req);
@@ -299,7 +299,7 @@ app.post('/updateAccessCodes', (req, res) => {
 // Health check
 app.get('/health', function(req, res) {
   var returnvalue = {};
-  message="invocation: /health and req=[ " + JSON.stringify(req) + "]";
+  message="invocation: /health req=[ " + req.headers.host + " ; " + req.headers.date + " ; " + req.headers.origin + " ]";
   logtofile(message);
   
   if(envDefined == false){
@@ -321,7 +321,7 @@ app.get('/health', function(req, res) {
 
 // Basic return
 app.get('/', function(req, res) {
-  message="invocation: [/] and req=[ " + JSON.stringify(req) + "]";
+  message="invocation: [ / ] req=[ " + req.headers.host + " ; " + req.headers.date + " ; " + req.headers.origin + " ]";
   logtofile(message);
   var credentials = auth(req);
   var returnvalue = {};
