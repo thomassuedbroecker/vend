@@ -24,6 +24,8 @@ var auth = require('basic-auth');
 // File log
 // *******
 var disable_file_log = false;
+var health_checked = false;
+
 // *******
 // Cloudant
 // *******
@@ -302,10 +304,14 @@ app.post('/updateAccessCodes', (req, res) => {
 // Health check
 app.get('/health', function(req, res) {
   var returnvalue = {};
-  headers=JSON.stringify(req.headers);
-  message="invocation: /health req=[ " + req.headers.host + " ; " + headers + " ]";
-  logtofile(message);
-  
+
+  if( health_checked == false ) {
+    headers=JSON.stringify(req.headers);
+    message="invocation: /health req=[ " + req.headers.host + " ; " + headers + " ]";
+    logtofile(message);
+    health_checked = true;
+  }
+
   if(envDefined == false){
     res.body=returnvalue;
     res.statusCode = "200";
@@ -328,7 +334,7 @@ app.get('/', function(req, res) {
   headers=JSON.stringify(req.headers);
   message="invocation: [ / ] req=[ " + req.headers.host + " ; " + headers + " ]";
   logtofile(message);
-  
+
   var credentials = auth(req);
   var returnvalue = {};
   
