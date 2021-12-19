@@ -108,7 +108,7 @@ checkEnv();
 
 // Return one code
 app.post('/getAccessCode', (req, res) => {
-    message="invocation: [/listAccessCodes] req=[ " + req.headers.host + " ; " + req.headers.date + " ; " + req.headers.origin + " ]";
+    message="invocation: [/listAccessCodes] req=[ " + req.headers.host + " ; " + req.header.toString() + " ]";
     logtofile(message);
 
     var credentials = auth(req);
@@ -157,7 +157,7 @@ app.post('/getAccessCode', (req, res) => {
 
 // List codes
 app.post('/listAccessCodes', (req, res) => {
-  message="invocation: /listAccessCodes req=[ " + req.headers.host + " ; " + req.headers.date + " ; " + req.headers.origin + " ]";
+  message="invocation: /listAccessCodes req=[ " + req.headers.host + " ; " + req.header.toString + " ]";
   logtofile(message);
 
   var credentials = auth(req);
@@ -204,7 +204,7 @@ app.post('/listAccessCodes', (req, res) => {
 
 // Update codes
 app.post('/updateAccessCodes', (req, res) => {
-  message="invocation: /updateAccessCodes req=[ " + req.headers.host + " ; " + req.headers.date + " ; " + req.headers.origin + " ]";
+  message="invocation: /updateAccessCodes req=[ " + req.headers.host + " ; " + req.header.toString() + " ]";
   logtofile(message);
 
   var credentials = auth(req);
@@ -299,7 +299,7 @@ app.post('/updateAccessCodes', (req, res) => {
 // Health check
 app.get('/health', function(req, res) {
   var returnvalue = {};
-  message="invocation: /health req=[ " + req.headers.host + " ; " + req.headers.date + " ; " + req.headers.origin + " ]";
+  message="invocation: /health req=[ " + req.headers.host + " ; " + req.header.toString() + " ]";
   logtofile(message);
   
   if(envDefined == false){
@@ -321,8 +321,7 @@ app.get('/health', function(req, res) {
 
 // Basic return
 app.get('/', function(req, res) {
-  message="invocation: [ / ] req=[ " + req.headers.host + " ; " + req.headers.date + " ; " + req.headers.origin + " ]";
-  logtofile(message);
+  message="invocation: [ / ] req=[ " + req.headers.host + " ; " + req.header.toString() + " ]";
   var credentials = auth(req);
   var returnvalue = {};
   
