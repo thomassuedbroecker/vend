@@ -108,7 +108,8 @@ checkEnv();
 
 // Return one code
 app.post('/getAccessCode', (req, res) => {
-    message="invocation: [/listAccessCodes] req=[ " + req.headers.host + " ; " + JSON.stringify(req.headers)+ " ]";
+    headers=JSON.stringify(req.headers);
+    message="invocation: [/getAccessCode] req=[ " + req.headers.host + " ; " + headers + " ]";
     logtofile(message);
 
     var credentials = auth(req);
@@ -157,7 +158,8 @@ app.post('/getAccessCode', (req, res) => {
 
 // List codes
 app.post('/listAccessCodes', (req, res) => {
-  message="invocation: /listAccessCodes req=[ " + req.headers.host + " ; " + JSON.stringify(req.headers)+ " ]";
+  headers=JSON.stringify(req.headers);
+  message="invocation: [/listAccessCodes] req=[ " + req.headers.host + " ; " + headers + " ]";
   logtofile(message);
 
   var credentials = auth(req);
@@ -204,7 +206,8 @@ app.post('/listAccessCodes', (req, res) => {
 
 // Update codes
 app.post('/updateAccessCodes', (req, res) => {
-  message="invocation: /updateAccessCodes req=[ " + req.headers.host + " ; " + JSON.stringify(req.headers)+ " ]";
+  headers=JSON.stringify(req.headers);
+  message="invocation: /updateAccessCodes req=[ " + req.headers.host + " ; " + headers + " ]";
   logtofile(message);
 
   var credentials = auth(req);
@@ -299,7 +302,8 @@ app.post('/updateAccessCodes', (req, res) => {
 // Health check
 app.get('/health', function(req, res) {
   var returnvalue = {};
-  message="invocation: /health req=[ " + req.headers.host + " ; " + JSON.stringify(req.headers)+ " ]";
+  headers=JSON.stringify(req.headers);
+  message="invocation: /health req=[ " + req.headers.host + " ; " + headers + " ]";
   logtofile(message);
   
   if(envDefined == false){
@@ -321,7 +325,8 @@ app.get('/health', function(req, res) {
 
 // Basic return
 app.get('/', function(req, res) {
-  message="invocation: [ / ] req=[ " + req.headers.host + " ; " + req.header.toString() + " ]";
+  headers=JSON.stringify(req.headers);
+  message="invocation: [ / ] req=[ " + req.headers.host + " ; " + headers + " ]";
   var credentials = auth(req);
   var returnvalue = {};
   
