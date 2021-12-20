@@ -331,9 +331,12 @@ app.get('/health', function(req, res) {
 
 // Basic return
 app.get('/', function(req, res) {
-  headers=JSON.stringify(req.headers);
-  message="invocation: [ / ] req=[ " + req.headers.host + " ; " + headers + " ]";
-  logtofile(message);
+
+  if (checkLocalhostRequest(req.headers) != true){
+    headers=JSON.stringify(req.headers);
+    message="invocation: [ / ] req=[ " + req.headers.host + " ; " + headers + " ]";
+    logtofile(message);
+  }
 
   var credentials = auth(req);
   var returnvalue = {};
@@ -651,6 +654,33 @@ function checkServiceSource(Headers){
           //console.log("** check header level 3 - fail");
           return false;
         }
+      } else {
+        //console.log("** check header level 2 - fail");
+        return false;
+      }
+  } else {
+    //console.log("** check header level 1 - fail");
+    return false;
+  }
+}
+
+// verify http request header
+function checkLocalhostRequest(Headers){
+
+  console.log("** headers ",JSON.stringify(Headers));
+  
+  // Problem inside the JSON with the "-" vs "_"
+  var extract =  JSON.stringify(Headers);
+  var str = extract.replace("user-agent", "user_agent");
+  var headers =  JSON.parse(str);
+  //console.log("** headers (str) (1): ",JSON.stringify(headers));
+
+  // 1. Check Header
+  if (headers.host != undefined){
+      //console.log("** check header level 1 - ok");
+      // 2. Check Header
+      if (headers.host === "localhost:8080"){
+        return true;
       } else {
         //console.log("** check header level 2 - fail");
         return false;
