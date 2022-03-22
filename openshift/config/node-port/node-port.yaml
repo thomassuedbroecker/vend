@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-port-service
+  labels:
+    name: node-port-service
+    app: vend-app
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    name: vend-app
