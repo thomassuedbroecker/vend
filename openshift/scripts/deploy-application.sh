@@ -23,7 +23,7 @@ export OS_PROJECT="vend-sec"
 export OS_BUILD="vend-build-config"
 export OS_IMAGE_STREAM="vend-image-stream"
 export OS_SERVICE="vend-service"
-export OS_CLUSTERNAME="roks-gen2-suedbro"
+export OS_CLUSTERNAME="domain-us-south-1-tsuedbro"
 
 # **************** Load environments variables
 export OS_DOMAIN=""
@@ -109,6 +109,7 @@ function createProject () {
   echo "-> delete project"
   oc delete project "$OS_PROJECT"
   oc get pv
+  oc delete -f "${root_folder}/openshift/config/perstiant-volume-claim-config/pvcs.yaml"
   oc delete pvc/vend-pvc-logs
   oc delete pvc/vend-pvc-accesscodes
   echo "-> status project"
@@ -129,23 +130,27 @@ function createSecureRoute () {
   echo "-> get ingress domain of the cluster"
   OS_DOMAIN=$(oc get ingresses.config/cluster -o jsonpath={.spec.domain})
   echo "-> domain: $OS_DOMAIN"
-  echo "-> get ingress secret of the cluster"
-  export INGRESS_SECRET=$(oc get secrets -n openshift-ingress | grep "$OS_CLUSTERNAME" | awk '{print $1;}')
+  echo "-> get ingress secret of the cluster: $OS_CLUSTERNAME"
+  #short search string to 25 chars
+  export SERACH=$(echo "${OS_CLUSTERNAME:0:25}")
+  export INGRESS_SECRET=$(oc get secrets -n openshift-ingress | grep "$SERACH" | awk '{print $1;}')
   echo "-> secret: $INGRESS_SECRET"
   echo "-> export secret"
-  oc extract secret/$INGRESS_SECRET --to=../secrets -n openshift-ingress
-  echo "-> create hostname"
+  echo "-> path $(pwd)"
+  echo "-> rootfolder: $root_folder"
+  oc extract secret/$INGRESS_SECRET --to="${root_folder}/openshift/config/secrets" -n openshift-ingress
+  echo "-> create hostname"  
   NAME=vend-sec
   export OS_HOSTNAME=$NAME.$OS_DOMAIN
   echo "-> create route"
   oc create route edge vend-sec-route \
                        --service vend-service \
-                       --key ../secrets/tls.key \
-                       --cert ../secrets/tls.crt \
+                       --key ${root_folder}/openshift/config/secrets/tls.key \
+                       --cert ${root_folder}/openshift/config/secrets/tls.crt \
                        --hostname=$OS_HOSTNAME \
                        --port=3000
-  rm -f ../secrets/tls.crt
-  rm -f ../secrets/tls.key
+  rm -f ${root_folder}/openshift/config/secrets/tls.crt
+  rm -f ${root_folder}/openshift/config/secrets/tls.key
 }
 
 # **********************************************************************************
