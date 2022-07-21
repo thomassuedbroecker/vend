@@ -5,11 +5,11 @@ echo "** Verify enviroment values"
 echo "*********************"
 
 # cloudant
-echo "${CLOUDANT_USERNAME}"
-echo "${CLOUDANT_PASSWORD}"
-echo "${CLOUDANT_URL}"
-echo "${CLOUDANT_PORT}"
-echo "${CLOUDANT_NAME}"
+echo "Cloudant username: ${CLOUDANT_USERNAME}"
+echo "Cloudant password: ${CLOUDANT_PASSWORD}"
+echo "Cloudant URL: ${CLOUDANT_URL}"
+echo "Cloudant port: ${CLOUDANT_PORT}"
+echo "Cloudant name: ${CLOUDANT_NAME}"
 # application
 echo "${VEND_USAGE}"
 echo "${USER}"
@@ -22,7 +22,7 @@ echo "** Create enviroment file "
 echo "*********************"
 
 "/bin/sh" ./generate_env-config.sh > ./.env
-more .env
+cat .env
 
 echo "*********************"
 echo "** Start server"

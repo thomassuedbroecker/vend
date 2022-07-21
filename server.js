@@ -50,7 +50,7 @@ var cloudantClient = Cloudant(
       .list()
       .then(body => {
         body.forEach(db => {
-          console.log("** Database :", db);
+          console.log("**  Database :", db);
         });
       })
       .catch(err => {
@@ -528,7 +528,7 @@ function checkEnv(){
       (process.env.CLOUDANT_PORT === "")){
 
     envDefined = false;
-    console.log("** envDefined: " + envDefined);
+    console.log("**  envDefined: " + envDefined);
 
   } else {
 
@@ -539,7 +539,7 @@ function checkEnv(){
     url = "" + urlCloudant + ":" + portCloudant + "";
     dbname = process.env.CLOUDANT_NAME;
     envDefined = true;
-    console.log("** envDefined: " + envDefined); 
+    console.log("**  envDefined: " + envDefined); 
 
   }
 }
