@@ -2,7 +2,7 @@
 
 # **************** Global variables
 export ROOT_PATH=$(pwd)
-export IMAGE_NAME=vend-simple:v1
+export IMAGE_NAME=vend-helm:v1.0.1
 export URL=quay.io
 export REPOSITORY=tsuedbroecker
 export CONTAINER_ENGINE=podman
