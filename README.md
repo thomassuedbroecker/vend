@@ -22,7 +22,7 @@ Here is a short overview of the vend application example functionalities and how
 
     * Is a [Node.js](https://nodejs.org/en/) server application to provide access codes 
     * The application can be executed in a container
-    * For deployments in an OpenShift cluster it as preconfigured
+    * For deployments in an OpenShift cluster it has preconfigured
         
         * `Configmap` for application configuration
         * `Deployment` for the application
