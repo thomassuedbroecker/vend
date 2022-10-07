@@ -1,7 +1,7 @@
 ##############################
 #           BUILD
 ##############################
-FROM node:17-alpine as BUILD
+FROM docker.io/node:18-alpine as BUILD
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -19,7 +19,7 @@ COPY server.js ./
 ##############################
 #           PRODUCTION
 ##############################
-FROM node:17-alpine
+FROM docker.io/node:18-alpine
 
 RUN apk --no-cache add curl
 # Set permissions

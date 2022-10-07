@@ -12,3 +12,4 @@ npm-debug.log*
 *.sw?
 .env
 site/
+package-lock.json

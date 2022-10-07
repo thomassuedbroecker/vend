@@ -2,10 +2,11 @@
 
 # **************** Global variables
 export ROOT_PATH=$(pwd)
-export IMAGE_NAME=vend-simple:v1
+export IMAGE_NAME=vend-simple:v2
 export URL=quay.io
 export REPOSITORY=tsuedbroecker
+export CONTAINER_RUNTIME=podman
 
-docker login quay.io
-docker build -t "$URL/$REPOSITORY/$IMAGE_NAME" -f Dockerfile .
-docker push "$URL/$REPOSITORY/$IMAGE_NAME"
+$CONTAINER_RUNTIME login quay.io
+$CONTAINER_RUNTIME build -t "$URL/$REPOSITORY/$IMAGE_NAME" -f Dockerfile .
+$CONTAINER_RUNTIME push "$URL/$REPOSITORY/$IMAGE_NAME"
