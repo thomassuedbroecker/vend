@@ -448,99 +448,104 @@ function saveAccessCodes(codes){
 function checkEnv(){
   var message = "";
 
-  if (process.env.VEND_USAGE == undefined) {
+  if (envDefined!= false) {
+    if (process.env.VEND_USAGE == undefined) {
 
-    message = "VEND_USAGE : undefined ";
-    //logtofile(message);
+      message = "VEND_USAGE : undefined ";
+      //logtofile(message);
 
+    } else {
+
+      message = "VEND_USAGE : " + process.env.VEND_USAGE;
+      vend_usage=process.env.VEND_USAGE;
+      //logtofile(message);
+
+    }
+
+    // user
+    if (process.env.USER == undefined) {
+
+      message = "USER : undefined ";
+      //logtofile(message);
+
+    } else {
+
+      message = "USER : " + process.env.USER;
+      vending_username=process.env.USER;
+      //logtofile(message);
+
+    }
+
+    if (process.env.USER_PASSWORD == undefined) {
+
+      message = "USER_PASSWORD : undefined ";
+      //logtofile(message);
+
+    } else {
+
+      message = "USER_PASSWORD : " + process.env.USER_PASSWORD;
+      vending_password=process.env.USER_PASSWORD;
+      //logtofile(message);
+
+    }
+
+    // admin
+    if (process.env.ADMINUSER == undefined) {
+
+      message = "ADMINUSER : undefined ";
+      //logtofile(message);
+
+    } else {
+
+      message = "ADMINUSER : " + process.env.ADMINUSER;
+      vendingadmin_username=process.env.ADMINUSER;
+      //logtofile(message);
+
+    }
+
+    if (process.env.ADMINUSER_PASSWORD == undefined) {
+
+      message = "ADMINUSER_PASSWORD : undefined ";
+      //(message);
+
+    } else {
+
+      message = "ADMINUSER_PASSWORD : " + process.env.ADMINUSER_PASSWORD;
+      vendingadmin_password=process.env.ADMINUSER_PASSWORD;
+      //logtofile(message);
+
+    }
+    
+    // cloudant
+    if ((process.env.CLOUDANT_USERNAME == undefined) ||
+        (process.env.CLOUDANT_PASSWORD == undefined) ||
+        (process.env.CLOUDANT_URL == undefined) ||
+        (process.env.CLOUDANT_NAME  == undefined) ||
+        (process.env.CLOUDANT_PORT == undefined) ||
+        (process.env.CLOUDANT_USERNAME === "") ||
+        (process.env.CLOUDANT_PASSWORD === "") ||
+        (process.env.CLOUDANT_URL === "") ||
+        (process.env.CLOUDANT_NAME  === "") ||
+        (process.env.CLOUDANT_PORT === "")){
+
+      envDefined = false;
+      console.log("** envDefined: " + envDefined);
+
+    } else {
+
+      usernameCloudant = process.env.CLOUDANT_USERNAME;
+      passwordCloudant = process.env.CLOUDANT_PASSWORD
+      urlCloudant = process.env.CLOUDANT_URL;
+      portCloudant = process.env.CLOUDANT_PORT;
+      url = "" + urlCloudant + ":" + portCloudant + "";
+      dbname = process.env.CLOUDANT_NAME;
+      envDefined = true;
+      console.log("** envDefined: " + envDefined); 
+
+    }
   } else {
-
-    message = "VEND_USAGE : " + process.env.VEND_USAGE;
-    vend_usage=process.env.VEND_USAGE;
-    //logtofile(message);
-
-  }
-
-  // user
-  if (process.env.USER == undefined) {
-
-    message = "USER : undefined ";
-    //logtofile(message);
-
-  } else {
-
-    message = "USER : " + process.env.USER;
-    vending_username=process.env.USER;
-    //logtofile(message);
-
-  }
-
-  if (process.env.USER_PASSWORD == undefined) {
-
-    message = "USER_PASSWORD : undefined ";
-    //logtofile(message);
-
-  } else {
-
-    message = "USER_PASSWORD : " + process.env.USER_PASSWORD;
-    vending_password=process.env.USER_PASSWORD;
-    //logtofile(message);
-
-  }
-
-  // admin
-  if (process.env.ADMINUSER == undefined) {
-
-    message = "ADMINUSER : undefined ";
-    //logtofile(message);
-
-  } else {
-
-    message = "ADMINUSER : " + process.env.ADMINUSER;
-    vendingadmin_username=process.env.ADMINUSER;
-    //logtofile(message);
-
-  }
-
-  if (process.env.ADMINUSER_PASSWORD == undefined) {
-
-    message = "ADMINUSER_PASSWORD : undefined ";
-    //(message);
-
-  } else {
-
-    message = "ADMINUSER_PASSWORD : " + process.env.ADMINUSER_PASSWORD;
-    vendingadmin_password=process.env.ADMINUSER_PASSWORD;
-    //logtofile(message);
-
-  }
-  
-  // cloudant
-  if ((process.env.CLOUDANT_USERNAME == undefined) ||
-      (process.env.CLOUDANT_PASSWORD == undefined) ||
-      (process.env.CLOUDANT_URL == undefined) ||
-      (process.env.CLOUDANT_NAME  == undefined) ||
-      (process.env.CLOUDANT_PORT == undefined) ||
-      (process.env.CLOUDANT_USERNAME === "") ||
-      (process.env.CLOUDANT_PASSWORD === "") ||
-      (process.env.CLOUDANT_URL === "") ||
-      (process.env.CLOUDANT_NAME  === "") ||
-      (process.env.CLOUDANT_PORT === "")){
-
     envDefined = false;
     console.log("** envDefined: " + envDefined);
-
-  } else {
-
-    usernameCloudant = process.env.CLOUDANT_USERNAME;
-    passwordCloudant = process.env.CLOUDANT_PASSWORD
-    urlCloudant = process.env.CLOUDANT_URL;
-    portCloudant = process.env.CLOUDANT_PORT;
-    url = "" + urlCloudant + ":" + portCloudant + "";
-    dbname = process.env.CLOUDANT_NAME;
-    envDefined = true;
-    console.log("** envDefined: " + envDefined); 
-
   }
 }
 
@@ -660,9 +665,13 @@ function logtofile(message) {
 
 const server = app.listen(port, function () {
     console.log('vend backend is running'); 
-    if (loadAccessCodes()==false){
-        initAccessCodes();
-    }  
+    if (envDefined != false){
+      if (loadAccessCodes()==false){
+          initAccessCodes();
+      }
+    } else {
+     console.log('no envDefined'); 
+    }
 });
 
 module.exports = server;
