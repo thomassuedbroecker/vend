@@ -36,5 +36,8 @@ RUN chmod -R 777 /usr/src/app && \
 COPY ./docker_entrypoint.sh .
 COPY ./generate_env-config.sh .
 
+RUN npm install
+USER vending_user
+
 EXPOSE 3000
 CMD ["/bin/sh","docker_entrypoint.sh"]
