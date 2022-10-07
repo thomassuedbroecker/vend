@@ -10,6 +10,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install && \
     mkdir modules
+RUN apk --no-cache add curl
 
 # Bundle app source
 COPY ./modules/db-logging.js ./modules
@@ -21,6 +22,7 @@ COPY server.js ./
 ##############################
 FROM docker.io/node:18-alpine
 
+RUN apk upgrade --available && sync
 RUN apk --no-cache add curl
 # Set permissions
 WORKDIR /usr/src/app
