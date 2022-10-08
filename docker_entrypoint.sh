@@ -1,5 +1,8 @@
 #!/bin/bash
 
+CURRENT_USER=$(whoami)
+echo "Current user: $CURRENT_USER"
+
 echo "*********************"
 echo "** Verify enviroment values"
 echo "*********************"
@@ -28,5 +31,8 @@ echo "*********************"
 echo "** Start server"
 echo "*********************"
 
-npm start
+ls 
+
+node server.js
+echo "npm start - doesn't work at the moment on openshift"
 
