@@ -28,5 +28,8 @@ echo "*********************"
 echo "** Start server"
 echo "*********************"
 
-npm start
+ls 
+
+node server.js
+echo "npm start - doesn't work at the moment on openshift"
 
