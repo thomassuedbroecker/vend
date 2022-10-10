@@ -1,7 +1,7 @@
 ##############################
 #           BUILD
 ##############################
-FROM node:17-alpine as BUILD
+FROM docker.io/node:18-alpine as BUILD
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -19,7 +19,7 @@ COPY server.js ./
 ##############################
 #           PRODUCTION
 ##############################
-FROM node:17-alpine
+FROM docker.io/node:18-alpine
 
 RUN apk --no-cache add curl
 # Set permissions
@@ -33,6 +33,8 @@ RUN chmod -R 777 /usr/src/app && \
 # Configure setup of the container
 COPY ./docker_entrypoint.sh .
 COPY ./generate_env-config.sh .
+RUN npm install
+USER vending_user
 
 EXPOSE 8080
 CMD ["/bin/sh","docker_entrypoint.sh"]
