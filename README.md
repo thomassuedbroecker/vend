@@ -10,7 +10,6 @@ Here is a short overview of the vend application example functionalities and how
 
 * What it does?
 
-
     * Uses basic authenication to secure the REST endpoint for an user and an admin
     * Provides `access codes` by REST endpoints to an user
     * Updates of `access codes` can be done with an admin user

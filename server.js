@@ -428,11 +428,16 @@ function loadAccessCodes(){
 // save the uploaded access codes in a local file on the server
 function saveAccessCodes(codes){
   try { 
-
-    fs.writeFileSync(accesscodes_filename, JSON.stringify(codes));
-    logging.log(codes,"save_access_codes"); 
-    console.log("** File written successfully: ", accesscodes_filename);
-    return true;
+    if ( envDefined == true ) {
+      envDefined
+      fs.writeFileSync(accesscodes_filename, JSON.stringify(codes));
+      logging.log(codes,"save_access_codes"); 
+      console.log("** File written successfully: ", accesscodes_filename);
+      return true;
+    } else {
+      console.error("** Access codes not saved"); 
+      return false;
+    }
 
   } catch(err) {
 
